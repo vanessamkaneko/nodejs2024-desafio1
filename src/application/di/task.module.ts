@@ -13,6 +13,8 @@ import { UpdateTaskUseCase } from 'src/core/task/usecase/task/update-task/update
 import { UpdateTaskController } from '../operation/controller/task/update-task/update-task.controller';
 import { DeleteTaskUseCase } from 'src/core/task/usecase/task/delete-task/delete-task.usecase';
 import { DeleteTaskController } from '../operation/controller/task/delete-task/delete-task.controller';
+import { UpdateCompleteTaskUseCase } from 'src/core/task/usecase/task/update-complete-task/update-complete-task.usecase';
+import { UpdateCompleteTaskController } from '../operation/controller/task/update-complete-task/update-complete-task.controller';
 
 const persistenceProviders: Provider[] = [
   {
@@ -53,6 +55,12 @@ const useCaseProviders: Provider[] = [
       new DeleteTaskUseCase(taskGateway),
     inject: [ITaskGateway],
   },
+  {
+    provide: UpdateCompleteTaskUseCase,
+    useFactory: (taskGateway: ITaskGateway) =>
+      new UpdateCompleteTaskUseCase(taskGateway),
+    inject: [ITaskGateway],
+  },
 ];
 
 const controllerProviders: Provider[] = [
@@ -79,6 +87,12 @@ const controllerProviders: Provider[] = [
     useFactory: (deleteTaskUseCase: DeleteTaskUseCase) =>
       new DeleteTaskController(deleteTaskUseCase),
     inject: [DeleteTaskUseCase],
+  },
+  {
+    provide: UpdateCompleteTaskController,
+    useFactory: (updateCompleteTaskUseCase: UpdateCompleteTaskUseCase) =>
+      new UpdateCompleteTaskController(updateCompleteTaskUseCase),
+    inject: [UpdateCompleteTaskUseCase],
   },
 ];
 

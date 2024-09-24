@@ -4,6 +4,7 @@ import { Task } from 'src/core/task/entity/task.entity';
 import { TaskModel } from 'src/infrastructure/persistence/bds/mongodb/schema/taskModel';
 import { ListTaskDto } from 'src/core/task/dto/list-task.dto';
 import { UpdateTaskDto } from 'src/core/task/dto/update-task.dto';
+import { UpdateCompleteTaskDto } from 'src/core/task/dto/update-complete-task.dto';
 
 @Injectable()
 export class TaskMongoDbRepository implements ITaskMongoDbRepository {
@@ -30,11 +31,11 @@ export class TaskMongoDbRepository implements ITaskMongoDbRepository {
   async update(id: string, payload: UpdateTaskDto): Promise<Task> {
     const updatedTask = await TaskModel.findByIdAndUpdate(
       id,
-      { new: true },
       {
         title: payload.title,
         description: payload.description,
       },
+      { new: true },
     );
 
     return updatedTask;
@@ -42,5 +43,18 @@ export class TaskMongoDbRepository implements ITaskMongoDbRepository {
 
   async delete(id: string): Promise<void> {
     await TaskModel.deleteOne({ _id: id });
+  }
+
+  async markAsComplete(
+    id: string,
+    payload: UpdateCompleteTaskDto,
+  ): Promise<Task> {
+    const markTaskAsComplete = await TaskModel.findByIdAndUpdate(
+      id,
+      { completed_at: payload.completed_at },
+      { new: true },
+    );
+
+    return markTaskAsComplete;
   }
 }

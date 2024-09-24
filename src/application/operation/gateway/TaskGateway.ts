@@ -4,6 +4,7 @@ import { Inject } from '@nestjs/common';
 import { ITaskMongoDbRepository } from 'src/infrastructure/persistence/repositories/task/mongodb/ITask-mongodb.repository';
 import { ListTaskDto } from 'src/core/task/dto/list-task.dto';
 import { UpdateTaskDto } from 'src/core/task/dto/update-task.dto';
+import { UpdateCompleteTaskDto } from 'src/core/task/dto/update-complete-task.dto';
 
 export class TaskGateway implements ITaskGateway {
   constructor(
@@ -39,5 +40,14 @@ export class TaskGateway implements ITaskGateway {
     const deletedTask = this.taskRepository.delete(id);
 
     return deletedTask;
+  }
+
+  async updateCompleteTask(
+    id: string,
+    payload: UpdateCompleteTaskDto,
+  ): Promise<Task> {
+    const markTaskAsComplete = this.taskRepository.markAsComplete(id, payload);
+
+    return markTaskAsComplete;
   }
 }

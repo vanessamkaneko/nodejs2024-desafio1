@@ -10,7 +10,7 @@ export class ServerApplication {
     app.useGlobalPipes(new ValidationPipe());
 
     await app.listen(3333);
-    console.log('Server is online!')
+    console.log('Server is online!');
   }
 
   public static new(): ServerApplication {
