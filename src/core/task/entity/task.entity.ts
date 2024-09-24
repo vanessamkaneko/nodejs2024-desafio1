@@ -1,4 +1,4 @@
-import { TaskDto } from '../dto/task.dto';
+import { CreateTaskDto } from '../dto/create-task.dto';
 
 export class Task {
   title: string;
@@ -11,13 +11,14 @@ export class Task {
 
   updated_at: Date;
 
-  private constructor(payload: TaskDto) {
+  private constructor(payload: CreateTaskDto) {
     this.title = payload.title;
     this.description = payload.description;
     this.completed_at = null;
+    this.updated_at = new Date();
   }
 
-  public static new(payload: TaskDto) {
+  public static new(payload: CreateTaskDto) {
     const task = new Task(payload);
     return task;
   }

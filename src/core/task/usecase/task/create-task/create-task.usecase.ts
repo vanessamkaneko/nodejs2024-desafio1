@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ITaskGateway } from 'src/application/operation/gateway/ITaskGateway';
-import { TaskDto } from 'src/core/task/dto/task.dto';
+import { CreateTaskDto } from 'src/core/task/dto/create-task.dto';
 import { Task } from 'src/core/task/entity/task.entity';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class CreateTaskUseCase {
     private taskGateway: ITaskGateway,
   ) {}
 
-  async execute(payload: TaskDto): Promise<Task> {
+  async execute(payload: CreateTaskDto): Promise<Task> {
     const newTask = Task.new(payload);
 
     const taskCreated = await this.taskGateway.createTask(newTask);

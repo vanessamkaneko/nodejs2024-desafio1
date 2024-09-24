@@ -7,6 +7,12 @@ import { CreateTaskUseCase } from 'src/core/task/usecase/task/create-task/create
 import { CreateTaskController } from '../operation/controller/task/create-task/create-task.controller';
 import { TaskControllerRoute } from '../api/http-rest/routes/task.route';
 import { TaskMongoDbRepository } from 'src/infrastructure/persistence/repositories/task/mongodb/Task-mongodb.repository';
+import { ListTasksUseCase } from 'src/core/task/usecase/task/list-tasks/list-tasks.usecase';
+import { ListTasksController } from '../operation/controller/task/list-tasks/list-tasks.controller';
+import { UpdateTaskUseCase } from 'src/core/task/usecase/task/update-task/update-task.usecase';
+import { UpdateTaskController } from '../operation/controller/task/update-task/update-task.controller';
+import { DeleteTaskUseCase } from 'src/core/task/usecase/task/delete-task/delete-task.usecase';
+import { DeleteTaskController } from '../operation/controller/task/delete-task/delete-task.controller';
 
 const persistenceProviders: Provider[] = [
   {
@@ -29,6 +35,24 @@ const useCaseProviders: Provider[] = [
       new CreateTaskUseCase(taskGateway),
     inject: [ITaskGateway],
   },
+  {
+    provide: ListTasksUseCase,
+    useFactory: (taskGateway: ITaskGateway) =>
+      new ListTasksUseCase(taskGateway),
+    inject: [ITaskGateway],
+  },
+  {
+    provide: UpdateTaskUseCase,
+    useFactory: (taskGateway: ITaskGateway) =>
+      new UpdateTaskUseCase(taskGateway),
+    inject: [ITaskGateway],
+  },
+  {
+    provide: DeleteTaskUseCase,
+    useFactory: (taskGateway: ITaskGateway) =>
+      new DeleteTaskUseCase(taskGateway),
+    inject: [ITaskGateway],
+  },
 ];
 
 const controllerProviders: Provider[] = [
@@ -37,6 +61,24 @@ const controllerProviders: Provider[] = [
     useFactory: (createTaskUseCase: CreateTaskUseCase) =>
       new CreateTaskController(createTaskUseCase),
     inject: [CreateTaskUseCase],
+  },
+  {
+    provide: ListTasksController,
+    useFactory: (listTasksUseCase: ListTasksUseCase) =>
+      new ListTasksController(listTasksUseCase),
+    inject: [ListTasksUseCase],
+  },
+  {
+    provide: UpdateTaskController,
+    useFactory: (updateTaskUseCase: UpdateTaskUseCase) =>
+      new UpdateTaskController(updateTaskUseCase),
+    inject: [UpdateTaskUseCase],
+  },
+  {
+    provide: DeleteTaskController,
+    useFactory: (deleteTaskUseCase: DeleteTaskUseCase) =>
+      new DeleteTaskController(deleteTaskUseCase),
+    inject: [DeleteTaskUseCase],
   },
 ];
 
