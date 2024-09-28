@@ -1,7 +1,7 @@
 import {
   Body,
   Controller,
-  Inject,
+  // Inject,
   Post,
   Query,
   Get,
@@ -24,7 +24,7 @@ import { UpdateCompleteTaskDto } from 'src/core/task/dto/update-complete-task.dt
 @Controller('/tasks')
 export class TaskControllerRoute {
   constructor(
-    @Inject(CreateTaskController)
+    // @Inject(CreateTaskController)
     private createTaskController: CreateTaskController,
     private listTasksController: ListTasksController,
     private updateTaskController: UpdateTaskController,
