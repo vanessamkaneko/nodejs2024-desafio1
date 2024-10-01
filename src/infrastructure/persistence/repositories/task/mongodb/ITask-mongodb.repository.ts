@@ -7,7 +7,7 @@ import { Task } from 'src/core/task/entity/task.entity';
 export interface ITaskMongoDbRepository {
   create(task: CreateTaskDto): Promise<Task>;
   find(query: ListTaskDto): Promise<Task[]>;
-  findById(id: string): Promise<Task>;
+  findById(id: string): Promise<Task | null>;
   update(id: string, payload: UpdateTaskDto): Promise<Task>;
   delete(id: string): Promise<void>;
   markAsComplete(id: string, payload: UpdateCompleteTaskDto): Promise<Task>;

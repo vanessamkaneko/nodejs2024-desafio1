@@ -22,7 +22,7 @@ export class TaskMongoDbRepository implements ITaskMongoDbRepository {
     return listedTasks; /* retorna as tasks de acordo com as queries, se não houver nenhuma query, retornará todas as tasks */
   }
 
-  async findById(id: string): Promise<Task> {
+  async findById(id: string): Promise<Task | null> {
     const task = await TaskModel.findById(id);
 
     return task;
